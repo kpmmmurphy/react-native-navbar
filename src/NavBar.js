@@ -30,7 +30,7 @@ class NavBar extends Component {
     style: styleType,
 
     barStyle: styleType,
-    barNavigationStyle: PropTypes.any,
+    barNavigationStyles: PropTypes.any,
 
     sceneStyle: styleType,
     sceneConfigLeft: PropTypes.object,
@@ -90,7 +90,7 @@ class NavBar extends Component {
     const {
       showBar,
       barStyle,
-      barNavigationStyle,
+      barNavigationStyles,
       sceneStyle,
       sceneConfigLeft,
       sceneConfigRight
@@ -118,7 +118,7 @@ class NavBar extends Component {
           <Navigator.NavigationBar
             routeMapper={routeMapper}
             style={barStyle}
-            navigationStyles={barNavigationStyle} />
+            navigationStyles={barNavigationStyles} />
         )}
         onDidFocus={this._onRouteDidFocus}
       />
