@@ -70,6 +70,8 @@ The URL that should currently be displayed. This can be a string, but will more 
 { url: '/post/123', from: 'right' }
 // Slide in from the left (looks like we're navigating "backwards")
 { url: '/', from: 'left' }
+// Do not transition, display immediately
+{ url: '/', from: 'none' }
 ```
 
 ### `showBar`

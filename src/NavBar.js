@@ -20,7 +20,7 @@ class NavBar extends Component {
       PropTypes.string,
       PropTypes.shape({
         url: PropTypes.string.isRequired,
-        from: PropTypes.oneOf(['left', 'right'])
+        from: PropTypes.oneOf(['left', 'right', 'none'])
       })
     ]).isRequired,
 
@@ -72,6 +72,10 @@ class NavBar extends Component {
 
     const navigator = this._navigator
     if (!navigator || isSameUrl(nextUrl, url)) return
+
+    if (route.from === 'none') {
+      return navigator.replace(route)
+    }
 
     navigator.push(route)
   }
