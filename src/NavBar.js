@@ -111,7 +111,7 @@ class NavBar extends Component {
         initialRouteStack={initialRouteStack}
         renderScene={(route) => {
           const Component = route.component
-          return <Component params={route.params} />
+          return <Component location={route.location} params={route.params} />
         }}
         configureScene={(route, routeStack) => ({
           ...(route.from === 'left' ? sceneConfigLeft : sceneConfigRight),

@@ -1,6 +1,7 @@
 import isString from 'lodash.isstring'
+import Url from 'url'
 
-export const getUrlParts = (url) => {
+export const getPathParts = (url) => {
   url = isString(url) ? url : url.url
   return url[0] === '/' ? url.split('/').slice(1) : url.split('/')
 }
@@ -17,24 +18,35 @@ export const findRoute = (url, routes) => {
     url = url.url
   }
 
+  const parsedUrl = Url.parse(url, true)
+
   const patterns = Object.keys(routes)
-  const urlParts = getUrlParts(url)
+  const pathParts = getPathParts(parsedUrl.pathname)
   let params = {}
 
   const pattern = patterns.find((p) => {
-    const patternParts = getUrlParts(p)
-    if (patternParts.length !== urlParts.length) return false
+    const patternParts = getPathParts(p)
+    if (patternParts.length !== pathParts.length) return false
 
     params = {}
 
     return patternParts.every((patternPart, i) => {
       if (patternPart[0] === ':') {
-        params[patternPart.slice(1)] = urlParts[i]
+        params[patternPart.slice(1)] = pathParts[i]
         return true
       }
-      return patternPart === urlParts[i]
+      return patternPart === pathParts[i]
     })
   })
 
-  return pattern ? { pattern, url, from, params, component: routes[pattern] } : null
+  const location = {
+    pathname: parsedUrl.pathname,
+    search: parsedUrl.search,
+    query: parsedUrl.query,
+    hash: parsedUrl.hash
+  }
+
+  return pattern
+    ? { pattern, url, location, from, params, component: routes[pattern] }
+    : null
 }

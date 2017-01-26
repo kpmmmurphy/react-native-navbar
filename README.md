@@ -1,4 +1,4 @@
-# react-native-navbar
+# react-native-navbar [![dependencies Status](https://david-dm.org/tableflip/react-native-navbar/status.svg)](https://david-dm.org/tableflip/react-native-navbar)
 
 A stupidly simple "stateless", route based, navigation bar component built on top of React Native's Navigator, for use with Redux.
 
@@ -54,6 +54,17 @@ Your scenes define what **components** should appear in the navigation bar when 
 Your `navBar` components are passed any URL `params` in props.
 
 **Note:** be careful when wrapping your component in a container, it can hide the `navBar` property from the NavBar component.
+
+### Passed props
+
+The following properties are passed to route components and "navBar" components:
+
+* `params` - parameters from the URL
+* `location` - an object conceptually similar to [`document.location`](https://developer.mozilla.org/en-US/docs/Web/API/Document/location) in web browsers
+    * `location.pathname` - the path section of the URL, before the query, including the initial slash if present
+    * `location.search` - the 'query string' portion of the URL, including the leading question mark
+    * `location.query` - a querystring-parsed object
+    * `location.hash` - the 'fragment' portion of the URL including the pound-sign
 
 ## Props
 
