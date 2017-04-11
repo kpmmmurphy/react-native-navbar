@@ -85,7 +85,9 @@ class NavBar extends Component {
     if (!navigator) return
 
     // Clean up old routes after transition
-    navigator.popToTop()
+    const currentRoutes = navigator.getCurrentRoutes()
+    const routeIndex = currentRoutes.findIndex(({ url }) => isSameUrl(url, this.props.url))
+    if (routeIndex > 0) navigator.immediatelyResetRouteStack(currentRoutes.slice(routeIndex))
   }
 
   render () {
