@@ -1,6 +1,6 @@
 {
   "name": "@tableflip/react-native-navbar",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Stateless NavBar navigation for React Native",
   "main": "src/NavBar.js",
   "dependencies": {
