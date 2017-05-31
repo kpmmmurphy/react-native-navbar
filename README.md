@@ -96,3 +96,7 @@ Styles passed to the container, bar and scene respectively.
 ### `sceneConfigLeft` and `sceneConfigRight`
 
 Configuration for scene transitions. Defaults to `Navigator.SceneConfigs.HorizontalSwipeJumpFromLeft` and `Navigator.SceneConfigs.HorizontalSwipeJumpFromRight`. [Scene configuration options](https://facebook.github.io/react-native/docs/navigator.html#configurescene).
+
+----
+
+A [(╯°□°）╯︵TABLEFLIP](https://tableflip.io) side project.
