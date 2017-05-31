@@ -47,6 +47,7 @@ class NavBar extends Component {
   constructor (props) {
     super(props)
     this._navigator = null
+    this.routeQueue = []
     this.state = {}
 
     const { url, routes } = props
@@ -56,6 +57,7 @@ class NavBar extends Component {
     const route = findRoute(url, routes)
     if (!route) return console.warn(`Route not found "${url}"`)
 
+    this.routeQueue.push(route)
     this.state = { initialRoute: route, initialRouteStack: [route] }
   }
 
@@ -73,19 +75,37 @@ class NavBar extends Component {
     const navigator = this._navigator
     if (!navigator || isSameUrl(nextUrl, url)) return
 
-    if (route.from === 'none') {
-      return navigator.replace(route)
+    // If the queue is empty, give this route to the navigator immediately
+    if (!this.routeQueue.length) {
+      if (route.from === 'none') {
+        navigator.replace(route)
+      } else {
+        navigator.push(route)
+      }
     }
 
-    navigator.push(route)
+    this.routeQueue.push(route)
   }
 
   _onRouteDidFocus = (route) => {
     const navigator = this._navigator
-    if (!navigator) return
+    if (!navigator) return setTimeout(() => this._onRouteDidFocus(route), 1)
 
     // Clean up old routes after transition
-    navigator.popToTop()
+    this.routeQueue.shift()
+
+    const nextRoute = this.routeQueue[0]
+    if (nextRoute) {
+      const currentRoutes = navigator.getCurrentRoutes()
+      // "shift" the navigator route stack
+      if (currentRoutes.length > 1) navigator.immediatelyResetRouteStack(currentRoutes.slice(1))
+
+      if (nextRoute.from === 'none') {
+        navigator.replace(nextRoute)
+      } else {
+        navigator.push(nextRoute)
+      }
+    }
   }
 
   render () {
