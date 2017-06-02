@@ -129,7 +129,12 @@ class NavBar extends Component {
         initialRouteStack={initialRouteStack}
         renderScene={(route) => {
           const Component = route.component
-          return <Component location={route.location} params={route.params} />
+          return (
+            <Component
+              location={route.location}
+              params={route.params}
+              isFocusedRoute={isSameUrl(route.url, this.props.url)} />
+          )
         }}
         configureScene={(route, routeStack) => ({
           ...(route.from === 'left' ? sceneConfigLeft : sceneConfigRight),

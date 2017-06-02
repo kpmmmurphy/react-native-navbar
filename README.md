@@ -66,6 +66,10 @@ The following properties are passed to route components and "navBar" components:
     * `location.query` - a querystring-parsed object
     * `location.hash` - the 'fragment' portion of the URL including the pound-sign
 
+The following additional properties are passed to route components:
+
+* `isFocusedRoute` - whether or not this is the currently focused route (it won't be during transition in/out)
+
 ## Props
 
 ### `routes`
