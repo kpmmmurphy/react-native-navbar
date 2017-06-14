@@ -95,15 +95,22 @@ class NavBar extends Component {
     this.routeQueue.shift()
 
     const nextRoute = this.routeQueue[0]
+    const currentRoutes = navigator.getCurrentRoutes()
+
     if (nextRoute) {
-      const currentRoutes = navigator.getCurrentRoutes()
       // "shift" the navigator route stack
-      if (currentRoutes.length > 1) navigator.immediatelyResetRouteStack(currentRoutes.slice(1))
+      if (currentRoutes.length > 1) {
+        navigator.immediatelyResetRouteStack(currentRoutes.slice(1))
+      }
 
       if (nextRoute.from === 'none') {
         navigator.replace(nextRoute)
       } else {
         navigator.push(nextRoute)
+      }
+    } else {
+      if (currentRoutes.length > 1) {
+        navigator.immediatelyResetRouteStack([route])
       }
     }
   }
